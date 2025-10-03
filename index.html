@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard capteurs</title>
+</head>
+<body>
+  <h1>Données capteurs</h1>
+  <div id="data"></div>
+
+  <script>
+    fetch('data/data.json')
+      .then(response => response.json())
+      .then(json => {
+        document.getElementById('data').innerHTML = `
+          <p><strong>Tension :</strong> ${json.tension.toFixed(2)} V</p>
+          <p><strong>Courant :</strong> ${json.courant.toFixed(2)} A</p>
+        `;
+      })
+      .catch(error => {
+        document.getElementById('data').innerHTML = `<p>Erreur de chargement : ${error}</p>`;
+      });
+  </script>
+</body>
+</html>
