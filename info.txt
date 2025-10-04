@@ -1,0 +1,12 @@
+https://github.com/FG-Design/aj21.git
+
+
+++9/9876
+Info:
+https://www.youtube.com/watch?v=e5AwNU3Y2es
+
+Token GitHub:
+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
+
+
+https://api.github.com/repos/fg-design/TON_REPO/contents/data/data.json
