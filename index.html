@@ -12,7 +12,9 @@
 
 	<script>
 	  function updateDisplay() {
-		fetch('https://raw.githubusercontent.com/FG-Design/aj21/main/data/data.json?nocache=' + new Date().getTime())
+		fetch('https://raw.githubusercontent.com/FG-Design/aj21/main/data/data.json?nocache=' + new Date().getTime(), {
+  cache: 'no-store'
+})
 		  .then(response => response.json())
 		  .then(data => {
 			console.log("Tension:", data.tension);
