@@ -13,12 +13,14 @@
 	<script>
 	  function updateDisplay() {
 		fetch('https://raw.githubusercontent.com/FG-Design/aj21/main/data/data.json?nocache=' + new Date().getTime())
-
 		  .then(response => response.json())
-		  .then(json => {
+		  .then(data => {
+			console.log("Tension:", data.tension);
+			console.log("Courant:", data.courant);
+
 			document.getElementById('data').innerHTML = `
-			  <p><strong>Tension :</strong> ${json.tension.toFixed(2)} V</p>
-			  <p><strong>Courant :</strong> ${json.courant.toFixed(2)} A</p>
+			  <p><strong>Tension :</strong> ${data.tension.toFixed(2)} V</p>
+			  <p><strong>Courant :</strong> ${data.courant.toFixed(2)} A</p>
 			`;
 			document.getElementById('timestamp').innerText = "Dernière mise à jour : " + new Date().toLocaleTimeString();
 		  })
@@ -34,6 +36,7 @@
 	  // Rafraîchissement toutes les 5 secondes
 	  setInterval(updateDisplay, 5000);
 	</script>
+
 </body>
 </html>
 
