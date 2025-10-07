@@ -12,7 +12,8 @@
 
 	<script>
 	  function updateDisplay() {
-		fetch('data/data.json')
+		fetch('https://raw.githubusercontent.com/FG-Design/aj21/main/data/data.json?nocache=' + new Date().getTime())
+
 		  .then(response => response.json())
 		  .then(json => {
 			document.getElementById('data').innerHTML = `
