@@ -5,39 +5,39 @@
   <title>Dashboard capteurs</title>
 </head>
 <body>
-	<h1>Données capteurs</h1>
-	<div id="data"></div>
-	<br>
-	<div id="timestamp"></div>
+    <h1>Données capteurs</h1>
+    <div id="data"></div>
+    <br>
+    <div id="timestamp"></div>
+    
+    <script>
+    function updateDisplay() {
+        fetch('https://fg-design.github.io/aj21/data/data.json?nocache=' + new Date().getTime(), {
+        cache: 'no-store'
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Tension:", data.tension);
+            console.log("Courant:", data.courant);
+    
+            document.getElementById('data').innerHTML = `
+            <p><strong>Tension :</strong> ${data.tension.toFixed(2)} V</p>
+            <p><strong>Courant :</strong> ${data.courant.toFixed(2)} A</p>
+            `;
+            document.getElementById('timestamp').innerText = "Dernière mise à jour : " + new Date().toLocaleTimeString();
+        })
+        .catch(error => {
+            document.getElementById('data').innerHTML = `<p>Erreur de chargement : ${error}</p>`;
+            document.getElementById('timestamp').innerText = "Erreur de mise à jour : " + new Date().toLocaleTimeString();
+        });
+    }
 
-	<script>
-	  function updateDisplay() {
-		fetch('https://raw.githubusercontent.com/FG-Design/aj21/main/data/data.json?nocache=' + new Date().getTime(), {
-  cache: 'no-store'
-})
-		  .then(response => response.json())
-		  .then(data => {
-			console.log("Tension:", data.tension);
-			console.log("Courant:", data.courant);
-
-			document.getElementById('data').innerHTML = `
-			  <p><strong>Tension :</strong> ${data.tension.toFixed(2)} V</p>
-			  <p><strong>Courant :</strong> ${data.courant.toFixed(2)} A</p>
-			`;
-			document.getElementById('timestamp').innerText = "Dernière mise à jour : " + new Date().toLocaleTimeString();
-		  })
-		  .catch(error => {
-			document.getElementById('data').innerHTML = `<p>Erreur de chargement : ${error}</p>`;
-			document.getElementById('timestamp').innerText = "Erreur de mise à jour : " + new Date().toLocaleTimeString();
-		  });
-	  }
-
-	  // Mise à jour initiale
+    // Mise à jour initiale
 	  updateDisplay();
 
-	  // Rafraîchissement toutes les 5 secondes
-	  setInterval(updateDisplay, 5000);
-	</script>
+    // Rafraîchissement toutes les 5 secondes
+    setInterval(updateDisplay, 5000);
+    </script>
 
 </body>
 </html>
