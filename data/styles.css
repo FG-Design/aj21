@@ -26,7 +26,7 @@ canvas {
 }
 .chart-center-text {
   position: absolute;
-  bottom: -80px; /* Aligné avec la base visuelle des demi-cercles */
+  bottom: -60px; /* Centré dans les demi-cercles */
   left: 50%;
   transform: translateX(-50%);
   font-size: 1.4em;
@@ -36,7 +36,7 @@ canvas {
 
 .chart-label {
   position: absolute;
-  bottom: -110px; /* Juste au-dessus de la valeur */
+  bottom: -90px; /* Juste au-dessous de la valeur */
   left: 50%;
   transform: translateX(-50%);
   font-size: 1em;
@@ -50,6 +50,6 @@ canvas {
 }
 .timestamp {
     margin-top: 20px;
-    font-size: 0.9em;
+    font-size: 1em;
     color: #555;
 }
