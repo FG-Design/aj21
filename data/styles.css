@@ -13,7 +13,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 0px; /* Supprime tout espace au-dessus des graphiques */
+    margin-top: -10px; /* Supprime tout espace au-dessus des graphiques */
     gap: 40px;
 }
 .chart-wrapper {
