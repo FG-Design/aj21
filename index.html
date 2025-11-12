@@ -8,97 +8,42 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <div class="titre">AJ21 - Données capteurs</div>
-  <div class="timestamp" id="timestamp"></div>
+    <div class="titre">AJ21 - Données capteurs</div>
+    <div class="timestamp" id="timestamp"></div>
 
-  <div class="charts-container">
-    <div class="chart-wrapper">
-      <div class="chart-label">Tension</div>
-      <div class="chart-center-text" id="tensionValue"></div>
-      <canvas id="tensionChart"></canvas>
+    <div class="charts-container">
+        <div class="chart-wrapper">
+            <div class="chart-label">Tension</div>
+            <div class="chart-center-text" id="tensionValue"></div>
+            <canvas id="tensionChart"></canvas>
+        </div>
+        <div class="chart-wrapper">
+            <div class="chart-label">Courant</div>
+            <div class="chart-center-text" id="courantValue"></div>
+            <canvas id="courantChart"></canvas>
+        </div>
     </div>
-    <div class="chart-wrapper">
-      <div class="chart-label">Courant</div>
-      <div class="chart-center-text" id="courantValue"></div>
-      <canvas id="courantChart"></canvas>
-    </div>
-  </div>
 
-  <script>
+    <script>
     const tensionCtx = document.getElementById('tensionChart').getContext('2d');
     const courantCtx = document.getElementById('courantChart').getContext('2d');
 
+    // Plugin pour graduation
     const graduationPlugin = {
-    id: 'graduationTicks',
-    afterDraw(chart) {
-        const {ctx, chartArea, config} = chart;
+        id: 'graduationTicks',
+        afterDraw(chart) {
+        const { ctx, chartArea } = chart;
         const centerX = chartArea.left + chartArea.width / 2;
-        const centerY = chartArea.top + chartArea.height;
+        const centerY = chartArea.top + chartArea.height / 2 + chart._metasets[0].data[0].outerRadius / 2;
         const radius = chart._metasets[0].data[0].outerRadius;
+        const segments = chart.config.options.plugins.graduationSegments || 15;
 
         ctx.save();
         ctx.strokeStyle = '#ccc';
         ctx.lineWidth = 1;
 
-        const segments = 15;
         for (let i = 0; i <= segments; i++) {
-        const angle = (-90 + (180 * i / segments)) * Math.PI / 180;
-        const x1 = centerX + Math.cos(angle) * (radius - 10);
-        const y1 = centerY + Math.sin(angle) * (radius - 10);
-        const x2 = centerX + Math.cos(angle) * radius;
-        const y2 = centerY + Math.sin(angle) * radius;
-
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.stroke();
-        }
-
-        ctx.restore();
-    }
-    };
-
-    let lastTension = null;
-    let lastCourant = null;
-
-    let tensionChart, courantChart;
-
-    function createHalfDonut(ctx, value, max, color, segments) {
-    return new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-        datasets: [{
-            data: [value, max - value],
-            backgroundColor: [color, '#eee'],
-            borderWidth: 0
-        }]
-        },
-        options: {
-        rotation: -90,
-        circumference: 180,
-        cutout: '70%',
-        responsive: true,
-        plugins: {
-            legend: { display: false },
-            tooltip: { enabled: false }
-        }
-        },
-        
-        plugins: [{
-        ...graduationPlugin,
-        afterDraw(chart) {
-            // Inject segment count dynamically
-            const {ctx, chartArea} = chart;
-            const centerX = chartArea.left + chartArea.width / 2;
-            const centerY = chartArea.top + chartArea.height;
-            const radius = chart._metasets[0].data[0].outerRadius;
-
-            ctx.save();
-            ctx.strokeStyle = '#ccc';
-            ctx.lineWidth = 1;
-
-            for (let i = 0; i <= segments; i++) {
-            const angle = (-90 + (180 * i / segments)) * Math.PI / 180;
+            const angle = (-180 + (180 * i / segments)) * Math.PI / 180;
             const x1 = centerX + Math.cos(angle) * (radius - 8);
             const y1 = centerY + Math.sin(angle) * (radius - 8);
             const x2 = centerX + Math.cos(angle) * radius;
@@ -108,54 +53,79 @@
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
             ctx.stroke();
-            }
-
-            ctx.restore();
         }
-        }]
-    });
+
+        ctx.restore();
+        }
+    };
+
+    let lastTension = null;
+    let lastCourant = null;
+    let tensionChart, courantChart;
+
+    function createHalfDonut(ctx, value, max, color, segments) {
+        return new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+            data: [value, max - value],
+            backgroundColor: [color, '#eee'],
+            borderWidth: 0
+            }]
+        },
+        options: {
+            rotation: -90,
+            circumference: 180,
+            cutout: '70%',
+            responsive: true,
+            plugins: {
+            legend: { display: false },
+            tooltip: { enabled: false },
+            graduationSegments: segments
+            }
+        },
+        plugins: [graduationPlugin]
+        });
     }
 
     async function updateCharts() {
-    try {
+        try {
         const response = await fetch('data/data.json?nocache=' + Date.now());
         const data = await response.json();
 
         const tension = data.tension;
         const courant = data.courant;
 
-        // Comparaison avec les dernières valeurs
-        const tensionChanged = tension !== lastTension;
-        const courantChanged = courant !== lastCourant;
+        // Mise à jour de l'heure (toujours)
+        const now = new Date();
+        document.getElementById('timestamp').textContent =
+            'Dernière mise à jour : ' + now.toLocaleTimeString();
 
         // Mise à jour des valeurs numériques
         document.getElementById('tensionValue').textContent = tension.toFixed(2) + ' V';
         document.getElementById('courantValue').textContent = courant.toFixed(2) + ' A';
 
         // Mise à jour des graphiques seulement si changement
-        if (tensionChanged) {
-        if (tensionChart) tensionChart.destroy();
-        tensionChart = createHalfDonut(tensionCtx, tension, 15, '#3498db', 15);
-        lastTension = tension;
+        if (tension !== lastTension) {
+            if (tensionChart) tensionChart.destroy();
+            tensionChart = createHalfDonut(tensionCtx, tension, 15, '#3498db', 15);
+            lastTension = tension;
         }
 
-        if (courantChanged) {
+        if (courant !== lastCourant) {
             if (courantChart) courantChart.destroy();
-                courantChart = createHalfDonut(courantCtx, courant, 5, '#e67e22', 5);    
-                lastCourant = courant;
-                // Mise à jour de l'heure
-                const now = new Date();
-                document.getElementById('timestamp').textContent =
-                'Dernière mise à jour : ' + now.toLocaleTimeString();
-            }
+            courantChart = createHalfDonut(courantCtx, courant, 5, '#e67e22', 5);
+            lastCourant = courant;
+        }
 
         } catch (error) {
-            console.error('Erreur de chargement des données:', error);
+        console.error('Erreur de chargement des données:', error);
         }
     }
 
     updateCharts();
     setInterval(updateCharts, 5000);
-  </script>
+    </script>
+
 </body>
 </html>
