@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Données Capteurs</title>
+  <title>Mesures Capteurs</title>
   <link rel="stylesheet" href="data/styles.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>Données capteurs</h1>
-  <h1>Mesures en temps réel</h1>
+  <h1>Données capteur</h1>
   <div class="charts-container">
     <div class="chart-wrapper">
       <canvas id="tensionChart"></canvas>
@@ -23,16 +22,14 @@
   <div class="timestamp" id="timestamp"></div>
 
   <script>
-    const tensionChartCtx = document.getElementById('tensionChart').getContext('2d');
-    const courantChartCtx = document.getElementById('courantChart').getContext('2d');
-
+    const tensionCtx = document.getElementById('tensionChart').getContext('2d');
+    const courantCtx = document.getElementById('courantChart').getContext('2d');
     let tensionChart, courantChart;
 
-    function createDonutChart(ctx, value, max, label, color) {
+    function createHalfDonut(ctx, value, max, color) {
       return new Chart(ctx, {
         type: 'doughnut',
         data: {
-          labels: [label, ''],
           datasets: [{
             data: [value, max - value],
             backgroundColor: [color, '#eee'],
@@ -40,6 +37,8 @@
           }]
         },
         options: {
+          rotation: -90,
+          circumference: 180,
           cutout: '70%',
           responsive: true,
           plugins: {
@@ -68,11 +67,11 @@
         if (tensionChart) tensionChart.destroy();
         if (courantChart) courantChart.destroy();
 
-        tensionChart = createDonutChart(tensionChartCtx, tension, 15, 'Tension', '#3498db');
-        courantChart = createDonutChart(courantChartCtx, courant, 5, 'Courant', '#e67e22');
+        tensionChart = createHalfDonut(tensionCtx, tension, 15, '#3498db');
+        courantChart = createHalfDonut(courantCtx, courant, 5, '#e67e22');
 
       } catch (error) {
-        console.error('Erreur lors du chargement des données:', error);
+        console.error('Erreur de chargement des données:', error);
       }
     }
 

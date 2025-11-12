@@ -7,19 +7,24 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 40px;
+    gap: 20px;
 }
 .chart-wrapper {
     position: relative;
-    width: 250px;
+    width: 100%;
+    max-width: 500px;
     height: 250px;
+}
+canvas {
+    width: 100% !important;
+    height: auto !important;
 }
 .chart-center-text {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.5em;
+    transform: translate(-50%, -30%);
+    font-size: 1.4em;
     font-weight: bold;
 }
 @media (max-width: 600px) {
