@@ -9,17 +9,18 @@
 </head>
 <body>
   <div class="titre">Données capteurs</div>
+  <div class="timestamp" id="timestamp"></div>
+
   <div class="charts-container">
     <div class="chart-wrapper">
-      <canvas id="tensionChart"></canvas>
       <div class="chart-center-text" id="tensionValue"></div>
+      <canvas id="tensionChart"></canvas>
     </div>
     <div class="chart-wrapper">
-      <canvas id="courantChart"></canvas>
       <div class="chart-center-text" id="courantValue"></div>
+      <canvas id="courantChart"></canvas>
     </div>
   </div>
-  <div class="timestamp" id="timestamp"></div>
 
   <script>
     const tensionCtx = document.getElementById('tensionChart').getContext('2d');

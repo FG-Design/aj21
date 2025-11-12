@@ -4,8 +4,8 @@ body {
     text-align: center;
 }
 .titre {
-    font-size: large;
-    color: red;
+    font-size: 14px;
+    color: black;
 }
 
 .charts-container {
