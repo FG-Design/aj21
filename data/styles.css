@@ -1,16 +1,35 @@
-.gauge-container {
-    width: 100%;
-    max-width: 600px; /* Prevent gauges from getting too large */
-    min-width: 250px; /* Prevent gauges from shrinking too much */
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    text-align: center;
 }
-
-.timecode {
-    font-size: 14px;
+.charts-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+.chart-wrapper {
+    position: relative;
+    width: 250px;
+    height: 250px;
+}
+.chart-center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5em;
+    font-weight: bold;
+}
+@media (max-width: 600px) {
+    .charts-container {
+    flex-direction: column;
+    align-items: center;
+    }
+}
+.timestamp {
+    margin-top: 20px;
+    font-size: 0.9em;
     color: #555;
-    margin-top: 5px;
 }
