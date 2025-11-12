@@ -3,6 +3,11 @@ body {
     margin: 20px;
     text-align: center;
 }
+.titre {
+    font-size: large;
+    color: red;
+}
+
 .charts-container {
     display: flex;
     flex-wrap: wrap;
