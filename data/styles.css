@@ -45,7 +45,7 @@ canvas {
 }
 @media screen and (max-width: 600px) {
   body {
-    background-color: blueviolet;
+    background-color: rgb(110, 226, 43);
   }
   .chart-center-text {
     bottom: 0px !important;
