@@ -25,12 +25,12 @@ canvas {
     height: auto !important;
 }
 .chart-center-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -30%);
-    font-size: 1.4em;
-    font-weight: bold;
+  position: absolute;
+  top: 65%; /* ← Ajusté pour être plus bas que le centre */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.4em;
+  font-weight: bold;
 }
 @media (max-width: 600px) {
     .charts-container {
