@@ -49,10 +49,10 @@ canvas {
         align-items: center;
     }
     .chart-center-text {
-        bottom: 0px; /* remonte aussi légèrement */
+        bottom: 10px; /* remonte aussi légèrement */
     }  
     .chart-label {
-        bottom: -30px; /* remonte un peu pour mobile */
+        bottom: -10px; /* remonte un peu pour mobile */
     }
 }
 .timestamp {
