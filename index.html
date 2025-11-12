@@ -68,11 +68,6 @@
         const tensionChanged = tension !== lastTension;
         const courantChanged = courant !== lastCourant;
 
-        // Mise à jour de l'heure
-        const now = new Date();
-        document.getElementById('timestamp').textContent =
-        'Dernière mise à jour : ' + now.toLocaleTimeString();
-
         // Mise à jour des valeurs numériques
         document.getElementById('tensionValue').textContent = tension.toFixed(2) + ' V';
         document.getElementById('courantValue').textContent = courant.toFixed(2) + ' A';
@@ -85,14 +80,18 @@
         }
 
         if (courantChanged) {
-        if (courantChart) courantChart.destroy();
-        courantChart = createHalfDonut(courantCtx, courant, 5, '#e67e22');
-        lastCourant = courant;
-        }
+            if (courantChart) courantChart.destroy();
+                courantChart = createHalfDonut(courantCtx, courant, 5, '#e67e22');
+                lastCourant = courant;
+                // Mise à jour de l'heure
+                const now = new Date();
+                document.getElementById('timestamp').textContent =
+                'Dernière mise à jour : ' + now.toLocaleTimeString();
+            }
 
-    } catch (error) {
-        console.error('Erreur de chargement des données:', error);
-    }
+        } catch (error) {
+            console.error('Erreur de chargement des données:', error);
+        }
     }
 
     updateCharts();
