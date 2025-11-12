@@ -114,7 +114,7 @@
 
         if (courant !== lastCourant) {
             if (courantChart) courantChart.destroy();
-            courantChart = createHalfDonut(courantCtx, courant, 5, '#e67e22', 5);
+            courantChart = createHalfDonut(courantCtx, courant, 100, '#e67e22', 10);
             lastCourant = courant;
         }
 
