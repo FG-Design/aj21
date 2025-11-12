@@ -4,7 +4,7 @@ body {
     text-align: center;
 }
 .titre {
-    font-size: 18px;
+    font-size: 22px;
     color: black;
 }
 
@@ -26,13 +26,21 @@ canvas {
 }
 .chart-center-text {
   position: absolute;
-  bottom: -60px; /* Aligne avec la base du conteneur */
+  bottom: -100px; /* Aligné avec la base visuelle des demi-cercles */
   left: 50%;
   transform: translateX(-50%);
   font-size: 1.4em;
   font-weight: bold;
   line-height: 1;
-  /*padding-bottom: 10px;  Ajuste selon l'épaisseur du donut */
+}
+
+.chart-label {
+  position: absolute;
+  bottom: -130px; /* Juste au-dessus de la valeur */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1em;
+  color: #444;
 }
 @media (max-width: 600px) {
     .charts-container {
