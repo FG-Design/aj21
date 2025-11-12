@@ -48,13 +48,12 @@ canvas {
         flex-direction: column;
         align-items: center;
     }
-    .chart-label {
-        bottom: -90px; /* remonte un peu pour mobile */
-    }
     .chart-center-text {
-        bottom: -60px; /* remonte aussi légèrement */
+        bottom: 0px; /* remonte aussi légèrement */
     }  
-
+    .chart-label {
+        bottom: -30px; /* remonte un peu pour mobile */
+    }
 }
 .timestamp {
     margin-top: 20px;
