@@ -45,14 +45,14 @@ canvas {
 }
 @media screen and (max-width: 600px) {
   body {
-    background-color: rgb(110, 226, 43);
+    background-color: rgb(255, 0, 0);
   }
   .chart-center-text {
-    bottom: 0px !important;
+    bottom: 30px !important;
   }
 
   .chart-label {
-    bottom: -10px !important;
+    bottom: 10px !important;
   }
 }
 
