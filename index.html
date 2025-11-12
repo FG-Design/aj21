@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AJ21 Données capteurs</title>
-  <link rel="stylesheet" href="data/styles.css?nocache=4">
+  <link rel="stylesheet" href="data/styles.css?nocache=5">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -37,16 +37,27 @@
       return new Chart(ctx, {
         type: 'doughnut',
         data: {
-          datasets: [{
+        datasets: [
+            {
+            // Couche 1 : Graduation (ex. 15 segments gris pâle)
+            data: Array(15).fill(1),
+            backgroundColor: Array(15).fill('#eee'),
+            borderWidth: 0,
+            cutout: '70%'
+            },
+            {
+            // Couche 2 : Valeur réelle (ex. 9.9 V sur 15)
             data: [value, max - value],
-            backgroundColor: [color, '#eee'],
-            borderWidth: 0
-          }]
-        },
+            backgroundColor: [color, 'transparent'], // ou '#0000' pour invisible
+            borderWidth: 0,
+            cutout: '70%'
+            }
+        ]
+        }
+
         options: {
           rotation: -90,
           circumference: 180,
-          cutout: '70%',
           responsive: true,
           plugins: {
             legend: { display: false },
