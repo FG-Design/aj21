@@ -26,11 +26,13 @@ canvas {
 }
 .chart-center-text {
   position: absolute;
-  top: 65%; /* ← Ajusté pour être plus bas que le centre */
+  bottom: 0; /* Aligne avec la base du conteneur */
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   font-size: 1.4em;
   font-weight: bold;
+  line-height: 1;
+  padding-bottom: 10px; /* Ajuste selon l'épaisseur du donut */
 }
 @media (max-width: 600px) {
     .charts-container {
