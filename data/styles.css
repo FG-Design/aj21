@@ -1,0 +1,16 @@
+.gauge-container {
+    width: 100%;
+    max-width: 600px; /* Prevent gauges from getting too large */
+    min-width: 250px; /* Prevent gauges from shrinking too much */
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.timecode {
+    font-size: 14px;
+    color: #555;
+    margin-top: 5px;
+}
