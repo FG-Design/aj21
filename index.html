@@ -27,6 +27,10 @@
   <script>
     const tensionCtx = document.getElementById('tensionChart').getContext('2d');
     const courantCtx = document.getElementById('courantChart').getContext('2d');
+
+    let lastTension = null;
+    let lastCourant = null;
+
     let tensionChart, courantChart;
 
     function createHalfDonut(ctx, value, max, color) {
@@ -53,29 +57,42 @@
     }
 
     async function updateCharts() {
-      try {
+    try {
         const response = await fetch('data/data.json?nocache=' + Date.now());
         const data = await response.json();
 
         const tension = data.tension;
         const courant = data.courant;
 
+        // Comparaison avec les dernières valeurs
+        const tensionChanged = tension !== lastTension;
+        const courantChanged = courant !== lastCourant;
+
+        // Mise à jour de l'heure
+        const now = new Date();
+        document.getElementById('timestamp').textContent =
+        'Dernière mise à jour : ' + now.toLocaleTimeString();
+
+        // Mise à jour des valeurs numériques
         document.getElementById('tensionValue').textContent = tension.toFixed(2) + ' V';
         document.getElementById('courantValue').textContent = courant.toFixed(2) + ' A';
 
-        const now = new Date();
-        document.getElementById('timestamp').textContent =
-          'Dernière mise à jour : ' + now.toLocaleTimeString();
-
+        // Mise à jour des graphiques seulement si changement
+        if (tensionChanged) {
         if (tensionChart) tensionChart.destroy();
-        if (courantChart) courantChart.destroy();
-
         tensionChart = createHalfDonut(tensionCtx, tension, 15, '#3498db');
-        courantChart = createHalfDonut(courantCtx, courant, 5, '#e67e22');
+        lastTension = tension;
+        }
 
-      } catch (error) {
+        if (courantChanged) {
+        if (courantChart) courantChart.destroy();
+        courantChart = createHalfDonut(courantCtx, courant, 5, '#e67e22');
+        lastCourant = courant;
+        }
+
+    } catch (error) {
         console.error('Erreur de chargement des données:', error);
-      }
+    }
     }
 
     updateCharts();
