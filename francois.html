@@ -90,6 +90,9 @@
 
     async function updateCharts() {
         try {
+        // Mise à jour de l'heure (toujours)
+        const now = new Date();
+        
         const response = await fetch('data/francois.json?nocache=' + Date.now());
         const data = await response.json();
 
@@ -98,8 +101,7 @@
         const etat = data.etat;
         const lastTS = now.toLocaleTimeString();
 
-        // Mise à jour de l'heure (toujours)
-        const now = new Date();
+
         document.getElementById('timestamp').textContent =
             'Board :                 François<br>' +
             'Dernière vérification : ' + lastTS + '<br>' +
