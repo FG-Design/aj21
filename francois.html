@@ -88,26 +88,25 @@
         });
     }
 
-    async function updateCharts() {
-        try {
-        // Mise à jour de l'heure (toujours)
-        const now = new Date();
-        
+async function updateCharts() {
+    try {
+        const now = new Date();   // Toujours au début
+        let lastTS = now.toLocaleTimeString();  // Doit être let, pas const
+
         const response = await fetch('data/francois.json?nocache=' + Date.now());
         const data = await response.json();
 
         const tension = data.tension;
         const courant = data.courant;
         const etat = data.etat;
-        const lastTS = now.toLocaleTimeString();
 
-
-        document.getElementById('timestamp').textContent =
-            'Board :                 François<br>' +
+        // Mise à jour de l'affichage
+        document.getElementById('timestamp').innerHTML =
+            'Board : François<br>' +
             'Dernière vérification : ' + lastTS + '<br>' +
-            'Dernière mise à jour :  ' + now.toLocaleTimeString() + '<br>' + 
-            'Etat du board :         ' + etat;
-            
+            'Dernière mise à jour : ' + now.toLocaleTimeString() + '<br>' +
+            'État du board : ' + etat;
+
         // Mise à jour des valeurs numériques
         document.getElementById('tensionValue').textContent = tension.toFixed(2) + ' V';
         document.getElementById('courantValue').textContent = courant.toFixed(2) + ' A';
@@ -117,20 +116,20 @@
             if (tensionChart) tensionChart.destroy();
             tensionChart = createHalfDonut(tensionCtx, tension, 15, '#3498db', 15);
             lastTension = tension;
-            lastTS = now.toLocaleTimeString();
+            lastTS = now.toLocaleTimeString();   // Mise à jour ici
         }
 
         if (courant !== lastCourant) {
             if (courantChart) courantChart.destroy();
             courantChart = createHalfDonut(courantCtx, courant, 100, '#e67e22', 10);
             lastCourant = courant;
-            lastTS = now.toLocaleTimeString();
+            lastTS = now.toLocaleTimeString();   // Mise à jour ici aussi
         }
 
-        } catch (error) {
+    } catch (error) {
         console.error('Erreur de chargement des données:', error);
-        }
     }
+}
 
     updateCharts();
     setInterval(updateCharts, 5000);
