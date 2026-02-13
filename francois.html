@@ -90,7 +90,7 @@
 
     async function updateCharts() {
         try {
-        const response = await fetch('data\francois.json?nocache=' + Date.now());
+        const response = await fetch('data/francois.json?nocache=' + Date.now());
         const data = await response.json();
 
         const tension = data.tension;
