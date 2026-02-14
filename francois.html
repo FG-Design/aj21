@@ -101,11 +101,26 @@ async function updateCharts() {
         const etat = data.etat;
 
         // Mise à jour de l'affichage
-        document.getElementById('timestamp').innerHTML =
-            'Board : François<br>' +
-            'Dernière mise à jour des valeurs : ' + (lastTS ?? '---') + '<br>' +
-            'Dernière vérification : ' + now.toLocaleTimeString() + '<br>' +
-            'État du board : ' + etat;
+        document.getElementById('timestamp').innerHTML = `
+            <table class="info-table">
+                <tr>
+                    <td><strong>Board</strong></td>
+                    <td>François</td>
+                </tr>
+                <tr>
+                    <td><strong>Dernière vérification</strong></td>
+                    <td>${now.toLocaleTimeString()}</td>
+                </tr>
+                <tr>
+                    <td><strong>Dernière mise à jour</strong></td>
+                    <td>${lastTS ?? "---"}</td>
+                </tr>
+                <tr>
+                    <td><strong>État du board</strong></td>
+                    <td>${etat}</td>
+                </tr>
+            </table>
+        `;
 
         // Mise à jour des valeurs numériques
         document.getElementById('tensionValue').textContent = tension.toFixed(2) + ' V';
