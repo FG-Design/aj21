@@ -58,3 +58,20 @@ canvas {
     font-size: 1em;
     color: #555;
 }
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 1rem;
+}
+
+.info-table td {
+    padding: 4px 8px;
+    vertical-align: top;
+}
+
+.info-table td:first-child {
+    font-weight: bold;
+    width: 45%;
+}
