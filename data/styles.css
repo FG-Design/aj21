@@ -60,18 +60,20 @@ canvas {
 }
 
 .info-table {
-    margin: 0 auto;          /* Centre le tableau */
+    display: inline-table;      /* Le tableau prend juste la place nécessaire */
+    margin: 10px auto;          /* Centre le tableau */
     border-collapse: collapse;
     font-size: 1rem;
 }
 
 .info-table td {
     padding: 4px 10px;
-    text-align: left;        /* Aligne le texte à gauche */
+    text-align: left;           /* Texte à gauche dans chaque cellule */
+    white-space: nowrap;        /* Évite que les labels se cassent en deux lignes */
 }
 
 .info-table td:first-child {
     font-weight: bold;
-    width: 45%;
 }
+
 
