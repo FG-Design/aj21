@@ -89,10 +89,24 @@
         });
     }
 
+    function formatDateTime(date) {
+        const yyyy = date.getFullYear();
+        const mm = String(date.getMonth() + 1).padStart(2, '0');
+        const dd = String(date.getDate()).padStart(2, '0');
+        const hh = String(date.getHours()).padStart(2, '0');
+        const min = String(date.getMinutes()).padStart(2, '0');
+        const ss = String(date.getSeconds()).padStart(2, '0');
+    
+        return `${yyyy}-${mm}-${dd} - ${hh}:${min}:${ss}`;
+    }
+
+      
 async function updateCharts() {
     try {
         const now = new Date();
-
+        const nowFormatted = formatDateTime(now);
+        const lastTSFormatted = lastTS ? formatDateTime(lastTS) : "---";
+      
         const response = await fetch('data/francois.json?nocache=' + Date.now());
         const data = await response.json();
 
@@ -109,11 +123,11 @@ async function updateCharts() {
                 </tr>
                 <tr>
                     <td><strong>Dernière vérification</strong></td>
-                    <td>${now.toLocaleTimeString()}</td>
+                    <td>${nowFormatted}</td>
                 </tr>
                 <tr>
                     <td><strong>Dernière mise à jour</strong></td>
-                    <td>${lastTS ?? "---"}</td>
+                    <td>${lastTSFormatted}</td>
                 </tr>
                 <tr>
                     <td><strong>État du board</strong></td>
@@ -131,14 +145,14 @@ async function updateCharts() {
             if (tensionChart) tensionChart.destroy();
             tensionChart = createHalfDonut(tensionCtx, tension, 15, '#3498db', 15);
             lastTension = tension;
-            lastTS = now.toLocaleTimeString();   // ← mise à jour ici
+            lastTS = lastTS = new Date();   // ← mise à jour ici
         }
 
         if (courant !== lastCourant) {
             if (courantChart) courantChart.destroy();
             courantChart = createHalfDonut(courantCtx, courant, 100, '#e67e22', 10);
             lastCourant = courant;
-            lastTS = now.toLocaleTimeString();   // ← mise à jour ici aussi
+            lastTS = lastTS = new Date();   // ← mise à jour ici aussi
         }
 
     } catch (error) {
