@@ -101,64 +101,75 @@
     }
 
       
-async function updateCharts() {
-    try {
-        const now = new Date();
-        const nowFormatted = formatDateTime(now);
-        const lastTSFormatted = lastTS ? formatDateTime(lastTS) : "---";
-      
-        const response = await fetch('data/francois.json?nocache=' + Date.now());
-        const data = await response.json();
-
-        const tension = data.tension;
-        const courant = data.courant;
-        const etat = data.etat;
-
-        // Mise à jour de l'affichage
-        document.getElementById('timestamp').innerHTML = `
-            <table class="info-table">
-                <tr>
-                    <td><strong>Board</strong></td>
-                    <td>François</td>
-                </tr>
-                <tr>
-                    <td><strong>Dernière vérification</strong></td>
-                    <td>${nowFormatted}</td>
-                </tr>
-                <tr>
-                    <td><strong>Dernière mise à jour</strong></td>
-                    <td>${lastTSFormatted}</td>
-                </tr>
-                <tr>
-                    <td><strong>État du board</strong></td>
-                    <td class="etat ${etat === "Actif" ? "etat-actif" : "etat-inactif"}">${etat}</td>
-                </tr>
-            </table>
-        `;
-
-        // Mise à jour des valeurs numériques
-        document.getElementById('tensionValue').textContent = tension.toFixed(2) + ' V';
-        document.getElementById('courantValue').textContent = courant.toFixed(2) + ' A';
-
-        // Mise à jour des graphiques seulement si changement
-        if (tension !== lastTension) {
-            if (tensionChart) tensionChart.destroy();
-            tensionChart = createHalfDonut(tensionCtx, tension, 15, '#3498db', 15);
-            lastTension = tension;
-            lastTS = lastTS = new Date();   // ← mise à jour ici
+    async function updateCharts() {
+        try {
+            const now = new Date();
+            const nowFormatted = formatDateTime(now);
+            const lastTSFormatted = lastTS ? formatDateTime(lastTS) : "---";
+          
+            const response = await fetch('data/francois.json?nocache=' + Date.now());
+            const data = await response.json();
+    
+            const tension = data.tension;
+            const courant = data.courant;
+            const etat = data.etat;
+    
+            // Mise à jour de l'affichage
+            document.getElementById('timestamp').innerHTML = `
+                <table class="info-table">
+                    <tr>
+                        <td><strong>Board</strong></td>
+                        <td>François</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dernière vérification</strong></td>
+                        <td>${nowFormatted}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dernière mise à jour</strong></td>
+                        <td>${lastTSFormatted}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>État du board</strong></td>
+                        <td class="etat ${etat === "Actif" ? "etat-actif" : "etat-inactif"}">${etat}</td>
+                    </tr>
+                </table>
+            `;
+    
+            // Mise à jour des valeurs numériques
+            document.getElementById('tensionValue').textContent = tension.toFixed(2) + ' V';
+            document.getElementById('courantValue').textContent = courant.toFixed(2) + ' A';
+    
+            // Mise à jour des graphiques seulement si changement
+            if (tension !== lastTension) {
+                if (tensionChart) tensionChart.destroy();
+                tensionChart = createHalfDonut(tensionCtx, tension, 15, '#3498db', 15);
+                lastTension = tension;
+                lastTS = new Date();   // ← mise à jour ici
+                localStorage.setItem("lastTS_francois", lastTS.toISOString());
+            }
+    
+            if (courant !== lastCourant) {
+                if (courantChart) courantChart.destroy();
+                courantChart = createHalfDonut(courantCtx, courant, 100, '#e67e22', 10);
+                lastCourant = courant;
+                lastTS = new Date();   // ← mise à jour ici aussi
+                localStorage.setItem("lastTS_francois", lastTS.toISOString());
+            }
+    
+        } catch (error) {
+            console.error('Erreur de chargement des données:', error);
         }
-
-        if (courant !== lastCourant) {
-            if (courantChart) courantChart.destroy();
-            courantChart = createHalfDonut(courantCtx, courant, 100, '#e67e22', 10);
-            lastCourant = courant;
-            lastTS = lastTS = new Date();   // ← mise à jour ici aussi
-        }
-
-    } catch (error) {
-        console.error('Erreur de chargement des données:', error);
     }
-}
+
+    let lastTS = null;
+    
+    // Charger la dernière valeur sauvegardée
+    const savedTS = localStorage.getItem("lastTS_francois");
+    if (savedTS) {
+        lastTS = new Date(savedTS);
+    }
+
 
     updateCharts();
     setInterval(updateCharts, 5000);
