@@ -1,5 +1,6 @@
       const tensionCtx = document.getElementById('tensionChart').getContext('2d');
       const courantCtx = document.getElementById('courantChart').getContext('2d');
+      const jsonFile = window.JSON_FILE || "data.json";
   
       // Plugin pour graduation
       const graduationPlugin = {
@@ -97,8 +98,7 @@
               const now = new Date();
               const nowFormatted = formatDateTime(now);
               const lastTSFormatted = lastTS ? formatDateTime(lastTS) : "---";
-            
-              const response = await fetch('data/francois.json?nocache=' + Date.now());
+              const response = await fetch("data/" + jsonFile + "?nocache=" + Date.now());
               const data = await response.json();
       
               const tension = Number(data.tension);
