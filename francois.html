@@ -63,13 +63,18 @@
     let lastCourant = null;
     let tensionChart, courantChart;
     
-    let lastTS = null;      
+    let lastTS = null;   
     // Charger la dernière valeur sauvegardée
     const savedTS = localStorage.getItem("lastTS_francois");
-    if (savedTS) {
-        lastTS = new Date(savedTS);
-    }
-  
+    if (savedTS) lastTS = new Date(savedTS);
+
+    const savedTension = localStorage.getItem("lastTension_francois");
+    if (savedTension) lastTension = parseFloat(savedTension);
+    
+    const savedCourant = localStorage.getItem("lastCourant_francois");
+    if (savedCourant) lastCourant = parseFloat(savedCourant);
+
+      
     function createHalfDonut(ctx, value, max, color, segments) {
         return new Chart(ctx, {
         type: 'doughnut',
@@ -151,6 +156,7 @@
                 if (tensionChart) tensionChart.destroy();
                 tensionChart = createHalfDonut(tensionCtx, tension, 15, '#3498db', 15);
                 lastTension = tension;
+                localStorage.setItem("lastTension_francois", tension);
                 lastTS = new Date();   // ← mise à jour ici
                 localStorage.setItem("lastTS_francois", lastTS.toISOString());
             }
@@ -159,6 +165,7 @@
                 if (courantChart) courantChart.destroy();
                 courantChart = createHalfDonut(courantCtx, courant, 100, '#e67e22', 10);
                 lastCourant = courant;
+                localStorage.setItem("lastCourant_francois", courant);
                 lastTS = new Date();   // ← mise à jour ici aussi
                 localStorage.setItem("lastTS_francois", lastTS.toISOString());
             }
