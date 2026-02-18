@@ -76,4 +76,17 @@ canvas {
     font-weight: bold;
 }
 
+/* Couleur de l'état */
+.etat {
+    font-weight: bold;
+    text-align: left;
+}
+
+.etat-actif {
+    color: #2ecc71;   /* Vert */
+}
+
+.etat-inactif {
+    color: #e74c3c;   /* Rouge */
+}
 
