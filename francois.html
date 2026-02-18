@@ -32,32 +32,39 @@
     const graduationPlugin = {
         id: 'graduationTicks',
         afterDraw(chart) {
-        const { ctx, chartArea } = chart;
-        const centerX = chartArea.left + chartArea.width / 2;
-        const centerY = chartArea.top + chartArea.height / 2 + chart._metasets[0].data[0].outerRadius / 2;
-        const radius = chart._metasets[0].data[0].outerRadius;
-        const segments = chart.config.options.plugins.graduationSegments || 15;
-
-        ctx.save();
-        ctx.strokeStyle = '#ccc';
-        ctx.lineWidth = 1;
-
-        for (let i = 0; i <= segments; i++) {
-            const angle = (-180 + (180 * i / segments)) * Math.PI / 180;
-            const x1 = centerX + Math.cos(angle) * (radius - 8);
-            const y1 = centerY + Math.sin(angle) * (radius - 8);
-            const x2 = centerX + Math.cos(angle) * radius;
-            const y2 = centerY + Math.sin(angle) * radius;
-
-            ctx.beginPath();
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.stroke();
-        }
-
-        ctx.restore();
+            const { ctx, chartArea } = chart;
+    
+            // Sécurité : si les métadonnées ne sont pas encore prêtes, on sort
+            const meta = chart._metasets && chart._metasets[0];
+            const firstData = meta && meta.data && meta.data[0];
+            if (!firstData) return;
+    
+            const centerX = chartArea.left + chartArea.width / 2;
+            const centerY = chartArea.top + chartArea.height / 2 + firstData.outerRadius / 2;
+            const radius = firstData.outerRadius;
+            const segments = chart.config.options.plugins.graduationSegments || 15;
+    
+            ctx.save();
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 1;
+    
+            for (let i = 0; i <= segments; i++) {
+                const angle = (-180 + (180 * i / segments)) * Math.PI / 180;
+                const x1 = centerX + Math.cos(angle) * (radius - 8);
+                const y1 = centerY + Math.sin(angle) * (radius - 8);
+                const x2 = centerX + Math.cos(angle) * radius;
+                const y2 = centerY + Math.sin(angle) * radius;
+    
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+            }
+    
+            ctx.restore();
         }
     };
+
 
     let lastTension = null;
     let lastCourant = null;
@@ -121,8 +128,9 @@
             const response = await fetch('data/francois.json?nocache=' + Date.now());
             const data = await response.json();
     
-            const tension = data.tension;
-            const courant = data.courant;
+            const tension = Number(data.tension);
+            const courant = Number(data.courant);
+
             const etat = data.etat;
     
             // Mise à jour de l'affichage
