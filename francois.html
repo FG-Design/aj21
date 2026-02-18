@@ -158,10 +158,20 @@
             // Mise à jour des valeurs numériques
             document.getElementById('tensionValue').textContent = tension.toFixed(2) + ' V';
             document.getElementById('courantValue').textContent = courant.toFixed(2) + ' A';
-    
+
+            // Création des graphs
+            if (!tensionChart) {
+              tensionChart = createHalfDonut(tensionCtx, tension, 15, '#3498db', 15);
+            }
+
+            if (!courantChart) {
+                courantChart = createHalfDonut(courantCtx, courant, 100, '#e67e22', 10);
+            }
+
             // Mise à jour des graphiques seulement si changement
+          
             if (tension !== lastTension) {
-                if (tensionChart) tensionChart.destroy();
+                tensionChart.destroy();
                 tensionChart = createHalfDonut(tensionCtx, tension, 15, '#3498db', 15);
                 lastTension = tension;
                 localStorage.setItem("lastTension_francois", tension);
@@ -170,7 +180,7 @@
             }
     
             if (courant !== lastCourant) {
-                if (courantChart) courantChart.destroy();
+                courantChart.destroy();
                 courantChart = createHalfDonut(courantCtx, courant, 100, '#e67e22', 10);
                 lastCourant = courant;
                 localStorage.setItem("lastCourant_francois", courant);
