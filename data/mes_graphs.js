@@ -1,6 +1,7 @@
       const tensionCtx = document.getElementById('tensionChart').getContext('2d');
       const courantCtx = document.getElementById('courantChart').getContext('2d');
       const jsonFile = window.JSON_FILE || "data.json";
+      const userName = window.USER_NAME || "Utilisateur";
   
       // Plugin pour graduation
       const graduationPlugin = {
@@ -111,7 +112,7 @@
                   <table class="info-table">
                       <tr>
                           <td><strong>Board</strong></td>
-                          <td>François</td>
+                          <td>${userName}</td>
                       </tr>
                       <tr>
                           <td><strong>Dernière vérification</strong></td>
