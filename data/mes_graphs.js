@@ -1,4 +1,3 @@
-<script>
       const tensionCtx = document.getElementById('tensionChart').getContext('2d');
       const courantCtx = document.getElementById('courantChart').getContext('2d');
   
@@ -170,4 +169,3 @@
   
       updateCharts();
       setInterval(updateCharts, 5000);
-</script>
