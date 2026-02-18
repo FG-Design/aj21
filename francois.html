@@ -131,7 +131,7 @@ async function updateCharts() {
                 </tr>
                 <tr>
                     <td><strong>État du board</strong></td>
-                    <td>${etat}</td>
+                    <td class="etat ${etat === "Actif" ? "etat-actif" : "etat-inactif"}">${etat}</td>
                 </tr>
             </table>
         `;
