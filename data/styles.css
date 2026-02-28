@@ -19,6 +19,27 @@ body {
     text-align: left;
 }
 
+/* Ligne "Délai d’inactivité" */
+.info-row {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.info-label {
+    width: 212px;        /* identique à #timestamp td:first-child */
+    text-align: right;
+    padding-right: 10px;
+    white-space: nowrap;
+    font-weight: bold;
+    color: black;
+}
+
+.info-value {
+    text-align: left;
+    padding-left: 10px;  /* aligne la dropdown avec les valeurs du tableau */
+}
+
 /* --- TABLEAU GÉNÉRÉ PAR JS --- */
 #timestamp table {
     width: 100%;
@@ -40,21 +61,6 @@ body {
 
 #timestamp td:last-child {
     text-align: left;
-}
-
-/* --- LIGNE "DÉLAI D’INACTIVITÉ" EN DIVS --- */
-.info-label {
-    width: 212px;        /* identique au tableau */
-    text-align: right;
-    padding-right: 10px;
-    white-space: nowrap;
-    font-weight: bold;
-    color: black;
-}
-
-.info-value {
-    text-align: left;
-    padding-left: 10px;  /* aligne la dropdown avec les valeurs */
 }
 
 /* --- DROPDOWN --- */
