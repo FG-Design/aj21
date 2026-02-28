@@ -13,20 +13,23 @@
   <script src="data/mes_graphs.js" defer></script>
 </head>
 <body>
-    <div class="titre">AJ21 - Données capteurs</div>
+  <div class="titre">AJ21 - Données capteurs</div>
+  
+  <div class="info-block">
     <div class="timestamp" id="timestamp"></div>
+    
     <div class="info-row">
-        <div class="info-label"><strong>Délai d’inactivité</strong></div>
-        <div class="info-value">
-            <select id="timeoutSelect">
-                <option value="5">5 minutes</option>
-                <option value="10">10 minutes</option>
-                <option value="30">30 minutes</option>
-                <option value="60">1 heure</option>
-            </select>
-        </div>
+      <div class="info-label"><strong>Délai d’inactivité</strong></div>
+      <div class="info-value">
+        <select id="timeoutSelect">
+          <option value="5">5 minutes</option>
+          <option value="10">10 minutes</option>
+          <option value="30">30 minutes</option>
+          <option value="60">1 heure</option>
+        </select>
+      </div>
     </div>
-
+    
     <div class="charts-container">
         <div class="chart-wrapper">
             <div class="chart-label">Tension</div>
