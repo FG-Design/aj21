@@ -30,10 +30,10 @@ body {
 
 #timestamp td:first-child {
     width: 200px; /* ← synchronise la largeur avec .info-label */
-/*    text-align: right;
+    text-align: right;
     font-weight: bold;
 }
-*/
+
 #timestamp td:last-child {
     text-align: left;
 }
