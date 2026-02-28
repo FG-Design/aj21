@@ -64,6 +64,7 @@ body {
 
 /* --- DROPDOWN CONFORTABLE --- */
 #timeoutSelect {
+    background-size: 14px;
     font-size: 1.1rem;
     padding: 8px 40px 8px 12px;
     border-radius: 6px;
