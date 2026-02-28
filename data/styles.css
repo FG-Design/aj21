@@ -30,8 +30,9 @@ body {
     white-space: nowrap;
 }
 
+/* largeur visuelle réelle de la colonne des titres */
 #timestamp td:first-child {
-    width: 212px; /* ← largeur visuelle réelle */
+    width: 212px;
     text-align: right;
     font-weight: bold;
     color: black;
@@ -41,20 +42,9 @@ body {
     text-align: left;
 }
 
-/* --- LIGNE "DÉLAI D’INACTIVITÉ" --- */
-.info-row {
-    display: table;
-    width: 100%;
-    margin-top: 8px;
-}
-
-.info-label,
-.info-value {
-    display: table-cell;
-    vertical-align: middle;
-}
-
+/* --- LIGNE "DÉLAI D’INACTIVITÉ" EN DIVS --- */
 .info-label {
+    width: 212px;        /* identique au tableau */
     text-align: right;
     padding-right: 10px;
     white-space: nowrap;
@@ -64,6 +54,7 @@ body {
 
 .info-value {
     text-align: left;
+    padding-left: 10px;  /* aligne la dropdown avec les valeurs */
 }
 
 /* --- DROPDOWN --- */
