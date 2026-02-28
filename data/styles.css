@@ -2,20 +2,21 @@
 body {
     font-family: sans-serif;
     margin: 20px;
-    text-align: center;
+    /* text-align: center;  ← SUPPRIMÉ */
 }
 
 .titre {
     font-size: 1.4em;
     font-weight: bold;
     color: black;
+    text-align: center; /* ← centrer uniquement le titre */
 }
 
 /* --- CONTENEUR CENTRAL POUR TIMESTAMP + DÉLAI --- */
 .info-block {
     width: 420px;
     margin: 0 auto 20px;
-    text-align: left; /* Permet l’alignement interne */
+    text-align: left;
 }
 
 /* --- TABLEAU GÉNÉRÉ PAR JS --- */
@@ -30,7 +31,7 @@ body {
 }
 
 #timestamp td:first-child {
-    width: 200px; /* Colonne des titres */
+    width: 200px;
     text-align: right;
     font-weight: bold;
     color: black;
@@ -40,7 +41,7 @@ body {
     text-align: left;
 }
 
-/* --- LIGNE "DÉLAI D’INACTIVITÉ" EN DIVS --- */
+/* --- LIGNE "DÉLAI D’INACTIVITÉ" --- */
 .info-row {
     display: flex;
     align-items: center;
@@ -48,8 +49,8 @@ body {
 }
 
 .info-label {
-    width: 200px;            /* même largeur que les titres du tableau */
-    text-align: right;       /* alignement identique */
+    width: 200px;
+    text-align: right;
     padding-right: 10px;
     white-space: nowrap;
     font-weight: bold;
@@ -59,12 +60,11 @@ body {
 
 .info-value {
     text-align: left;
-    padding-left: 10px;      /* aligne la dropdown avec les valeurs du tableau */
+    padding-left: 10px;
 }
 
-/* --- DROPDOWN CONFORTABLE --- */
+/* --- DROPDOWN --- */
 #timeoutSelect {
-    background-size: 14px;
     font-size: 1.1rem;
     padding: 8px 40px 8px 12px;
     border-radius: 6px;
@@ -75,4 +75,56 @@ body {
     appearance: none;
 
     background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='14' width='14' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><polygon points='0,0 20,0 10,10'/></svg>");
-    background
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 14px; /* ← empêche la duplication */
+}
+
+#timeoutSelect:focus {
+    outline: 2px solid #3498db;
+}
+
+/* --- GRAPHIQUES --- */
+.charts-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.chart-wrapper {
+    position: relative;
+    width: 300px;   /* ← largeur fixe */
+    height: 250px;
+}
+
+canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+.chart-center-text {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.chart-label {
+    position: absolute;
+    bottom: -90px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1em;
+    color: #444;
+}
+
+/* --- MOBILE --- */
+@media screen and (max-width: 600px) {
+    .charts-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
