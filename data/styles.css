@@ -100,6 +100,25 @@ canvas {
     color: #e74c3c;   /* Rouge */
 }
 
+/* Structure identique au tableau généré dans #timestamp */
+.info-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.info-label {
+    width: 200px;          /* largeur fixe pour aligner avec les autres titres */
+    text-align: right;     /* alignement à droite */
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.info-value {
+    text-align: left;
+}
+
+/* Style amélioré pour la dropdown */
 #timeoutSelect {
     font-size: 1.1rem;
     padding: 8px 40px 8px 12px; /* espace pour la flèche */
@@ -107,14 +126,13 @@ canvas {
     border: 1px solid #ccc;
     cursor: pointer;
     background-color: white;
-    width: 180px; /* ← largeur confortable */
+    width: 180px; /* largeur confortable */
     appearance: none;
 
     background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='14' width='14' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><polygon points='0,0 20,0 10,10'/></svg>");
     background-repeat: no-repeat;
     background-position: right 12px center;
 }
-
 
 #timeoutSelect:focus {
     outline: 2px solid #3498db;
