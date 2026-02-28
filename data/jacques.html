@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AJ21 Données capteurs</title>
+  <link rel="stylesheet" href="data/styles.css?nocache=7">
+  <script src="data/Charts.js" defer></script>
+  <script>
+    window.JSON_FILE = "jacques.json";
+    window.USER_NAME = "Jacques";
+  </script>
+  <script src="data/mes_graphs.js" defer></script>  
+</head>
+<body>
+    <div class="titre">AJ21 - Données capteurs</div>
+    <div class="timestamp" id="timestamp"></div>
+
+    <div class="charts-container">
+        <div class="chart-wrapper">
+            <div class="chart-label">Tension</div>
+            <div class="chart-center-text" id="tensionValue"></div>
+            <canvas id="tensionChart"></canvas>
+        </div>
+        <div class="chart-wrapper">
+            <div class="chart-label">Courant</div>
+            <div class="chart-center-text" id="courantValue"></div>
+            <canvas id="courantChart"></canvas>
+        </div>
+    </div>
+</body>
+</html>
