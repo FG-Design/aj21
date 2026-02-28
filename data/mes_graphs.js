@@ -13,8 +13,7 @@ const userName = window.USER_NAME || "Utilisateur";
 // Récupère une version normalisée pour les clés du localStorage
 const userKey = normalizeName(userName);
 
-// Clés uniques par utilisateur
-const LAST_TS_KEY       = `${userKey}_lastTS`;
+// Clés uniques par utilisateur (pour éviter de redessiner inutilement)
 const LAST_TENSION_KEY  = `${userKey}_lastTension`;
 const LAST_COURANT_KEY  = `${userKey}_lastCourant`;
 
@@ -60,21 +59,11 @@ const graduationPlugin = {
     }
 };
 
-let lastTension = null;
-let lastCourant = null;
-let tensionChart, courantChart;
+let lastTension = parseFloat(localStorage.getItem(LAST_TENSION_KEY)) || null;
+let lastCourant = parseFloat(localStorage.getItem(LAST_COURANT_KEY)) || null;
 
-let lastTS = null;
-
-// Charger les valeurs sauvegardées pour CET utilisateur
-const savedTS = localStorage.getItem(LAST_TS_KEY);
-if (savedTS) lastTS = new Date(savedTS);
-
-const savedTension = localStorage.getItem(LAST_TENSION_KEY);
-if (savedTension) lastTension = parseFloat(savedTension);
-
-const savedCourant = localStorage.getItem(LAST_COURANT_KEY);
-if (savedCourant) lastCourant = parseFloat(savedCourant);
+let tensionChart = null;
+let courantChart = null;
 
 function createHalfDonut(ctx, value, max, color, segments) {
     return new Chart(ctx, {
@@ -116,14 +105,18 @@ async function updateCharts() {
     try {
         const now = new Date();
         const nowFormatted = formatDateTime(now);
-        const lastTSFormatted = lastTS ? formatDateTime(lastTS) : "---";
 
+        // Charger JSON
         const response = await fetch("data/" + jsonFile + "?nocache=" + Date.now());
         const data = await response.json();
 
         const tension = Number(data.tension);
         const courant = Number(data.courant);
         const etat = data.etat;
+
+        // NOUVEAU : timestamp provenant du JSON
+        const lastTS = data.timestamp ? new Date(data.timestamp) : null;
+        const lastTSFormatted = lastTS ? formatDateTime(lastTS) : "---";
 
         // Mise à jour de l'affichage
         document.getElementById('timestamp').innerHTML = `
@@ -150,6 +143,7 @@ async function updateCharts() {
         document.getElementById('tensionValue').textContent = tension.toFixed(2) + ' V';
         document.getElementById('courantValue').textContent = courant.toFixed(2) + ' A';
 
+        // Création initiale des graphiques
         if (!tensionChart) {
             tensionChart = createHalfDonut(tensionCtx, tension, 15, '#3498db', 15);
         }
@@ -160,26 +154,23 @@ async function updateCharts() {
 
         // Mise à jour si changement
         if (tension !== lastTension) {
-              tensionChart.destroy();
-              tensionChart = createHalfDonut(tensionCtx, tension, 15, '#3498db', 15);
-              lastTension = tension;
-              localStorage.setItem(LAST_TENSION_KEY, tension);
-              lastTS = new Date();
-              localStorage.setItem(LAST_TS_KEY, lastTS.toISOString());
-        }
-        
-        if (courant !== lastCourant) {
-              courantChart.destroy();
-              courantChart = createHalfDonut(courantCtx, courant, 100, '#e67e22', 10);
-              lastCourant = courant;
-              localStorage.setItem(LAST_COURANT_KEY, courant);
-              lastTS = new Date();
-              localStorage.setItem(LAST_TS_KEY, lastTS.toISOString());
+            tensionChart.destroy();
+            tensionChart = createHalfDonut(tensionCtx, tension, 15, '#3498db', 15);
+            lastTension = tension;
+            localStorage.setItem(LAST_TENSION_KEY, tension);
         }
 
-  } catch (error) {
-          console.error('Erreur de chargement des données:', error);
-  }
+        if (courant !== lastCourant) {
+            courantChart.destroy();
+            courantChart = createHalfDonut(courantCtx, courant, 100, '#e67e22', 10);
+            lastCourant = courant;
+            localStorage.setItem(LAST_COURANT_KEY, courant);
+        }
+
+    } catch (error) {
+        console.error('Erreur de chargement des données:', error);
+    }
 }
+
 updateCharts();
 setInterval(updateCharts, 5000);
