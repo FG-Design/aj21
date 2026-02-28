@@ -129,3 +129,16 @@ canvas {
         align-items: center;
     }
 }
+
+/* --- ÉTAT --- */
+.etat {
+    font-weight: bold;
+}
+
+.etat-actif {
+    color: #2ecc71;
+}
+
+.etat-inactif {
+    color: #e74c3c;
+}
