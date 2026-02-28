@@ -76,6 +76,16 @@ canvas {
     font-weight: bold;
 }
 
+.info-table td.label-cell {
+    text-align: right;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.info-table td.value-cell {
+    text-align: left;
+}
+
 /* Couleur de l'état */
 .etat {
     font-weight: bold;
@@ -91,17 +101,20 @@ canvas {
 }
 
 #timeoutSelect {
-    appearance: none;
-    background-color: #f8f8f8;
-    border: 1px solid #aaa;
-    padding: 8px 14px;
+    font-size: 1.1rem;
+    padding: 8px 40px 8px 12px; /* espace pour la flèche */
     border-radius: 6px;
-    font-size: 1rem;
+    border: 1px solid #ccc;
     cursor: pointer;
-    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='12' width='12' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><polygon points='0,0 20,0 10,10'/></svg>");
+    background-color: white;
+    width: 180px; /* ← largeur confortable */
+    appearance: none;
+
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='14' width='14' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><polygon points='0,0 20,0 10,10'/></svg>");
     background-repeat: no-repeat;
-    background-position: right 10px center;
+    background-position: right 12px center;
 }
+
 
 #timeoutSelect:focus {
     outline: 2px solid #3498db;
