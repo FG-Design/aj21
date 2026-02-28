@@ -29,6 +29,7 @@ body {
 }
 
 #timestamp td:first-child {
+    width: 200px; /* ← synchronise la largeur avec .info-label */
     text-align: right;
     font-weight: bold;
 }
@@ -45,10 +46,13 @@ body {
 }
 
 .info-label {
-    width: 200px;
-    text-align: right;
+    width: 200px;            /* même largeur que la colonne des titres */
+    text-align: right;       /* alignement identique */
     padding-right: 10px;
     white-space: nowrap;
+    font-weight: bold;       /* ← AJOUT ESSENTIEL */
+    color: #555;             /* même couleur que le tableau */
+    font-size: 1rem;         /* même taille que le tableau */
 }
 
 .info-value {
