@@ -94,7 +94,8 @@ body {
 
 .chart-wrapper {
     position: relative;
-    width: 300px;   /* ← largeur fixe */
+    width: 100%;
+    max-width: 500px;
     height: 250px;
 }
 
