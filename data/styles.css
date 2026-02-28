@@ -90,3 +90,24 @@ canvas {
     color: #e74c3c;   /* Rouge */
 }
 
+#timeoutSelect {
+    appearance: none;
+    background-color: #f8f8f8;
+    border: 1px solid #aaa;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='12' width='12' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><polygon points='0,0 20,0 10,10'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+#timeoutSelect:focus {
+    outline: 2px solid #3498db;
+}
+
+label[for="timeoutSelect"] {
+    font-size: 1.1rem;
+    margin-right: 6px;
+}
