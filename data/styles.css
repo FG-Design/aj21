@@ -3,113 +3,50 @@ body {
     margin: 20px;
     text-align: center;
 }
+
 .titre {
     font-size: 1.4em;
     font-weight: bold;
     color: black;
 }
 
-.charts-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: -20px; /* Supprime tout espace au-dessus des graphiques */
-    gap: 40px;
+/* --- CONTENEUR CENTRAL POUR TIMESTAMP + DÉLAI --- */
+.info-block {
+    width: 420px;
+    margin: 0 auto 20px;
+    text-align: left; /* IMPORTANT : permet l’alignement interne */
 }
-.chart-wrapper {
-    position: relative;
+
+/* --- TABLEAU GÉNÉRÉ PAR JS --- */
+#timestamp table {
     width: 100%;
-    max-width: 500px;
-    height: 250px;
-}
-canvas {
-    width: 100% !important;
-    height: auto !important;
-}
-.chart-center-text {
-  position: absolute;
-  bottom: -60px; /* Centré dans les demi-cercles */
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.4em;
-  font-weight: bold;
-  line-height: 1;
-}
-
-.chart-label {
-  position: absolute;
-  bottom: -90px; /* Juste au-dessous de la valeur */
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1em;
-  color: #444;
-}
-@media screen and (max-width: 600px) {
-  .chart-center-text {
-    bottom: 30px !important;
-  }
-  .chart-label {
-    bottom: 10px !important;
-  }
-}
-
-.timestamp {
-    margin-top: 0px;
-    font-size: 1em;
-    color: #555;
-}
-
-.info-table {
-    display: inline-table;      /* Le tableau prend juste la place nécessaire */
-    margin: 10px auto;          /* Centre le tableau */
     border-collapse: collapse;
-    font-size: 1rem;
 }
 
-.info-table td {
+#timestamp td {
     padding: 4px 10px;
-    text-align: left;           /* Texte à gauche dans chaque cellule */
-    white-space: nowrap;        /* Évite que les labels se cassent en deux lignes */
-}
-
-.info-table td:first-child {
-    font-weight: bold;
-}
-
-.info-table td.label-cell {
-    text-align: right;
-    padding-right: 10px;
     white-space: nowrap;
 }
 
-.info-table td.value-cell {
-    text-align: left;
-}
-
-/* Couleur de l'état */
-.etat {
+#timestamp td:first-child {
+    text-align: right;
     font-weight: bold;
+}
+
+#timestamp td:last-child {
     text-align: left;
 }
 
-.etat-actif {
-    color: #2ecc71;   /* Vert */
-}
-
-.etat-inactif {
-    color: #e74c3c;   /* Rouge */
-}
-
-/* Structure identique au tableau généré dans #timestamp */
+/* --- LIGNE "DÉLAI D’INACTIVITÉ" EN DIVS --- */
 .info-row {
     display: flex;
     align-items: center;
-    margin-bottom: 8px;
+    margin-top: 8px;
 }
 
 .info-label {
-    width: 200px;          /* largeur fixe pour aligner avec les autres titres */
-    text-align: right;     /* alignement à droite */
+    width: 200px;
+    text-align: right;
     padding-right: 10px;
     white-space: nowrap;
 }
@@ -118,17 +55,16 @@ canvas {
     text-align: left;
 }
 
-/* Style amélioré pour la dropdown */
+/* --- DROPDOWN CONFORTABLE --- */
 #timeoutSelect {
     font-size: 1.1rem;
-    padding: 8px 40px 8px 12px; /* espace pour la flèche */
+    padding: 8px 40px 8px 12px;
     border-radius: 6px;
     border: 1px solid #ccc;
     cursor: pointer;
     background-color: white;
-    width: 180px; /* largeur confortable */
+    width: 180px;
     appearance: none;
-
     background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='14' width='14' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><polygon points='0,0 20,0 10,10'/></svg>");
     background-repeat: no-repeat;
     background-position: right 12px center;
@@ -138,7 +74,64 @@ canvas {
     outline: 2px solid #3498db;
 }
 
-label[for="timeoutSelect"] {
-    font-size: 1.1rem;
-    margin-right: 6px;
+/* --- GRAPHIQUES --- */
+.charts-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: -20px;
+    gap: 40px;
+}
+
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 250px;
+}
+
+canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+.chart-center-text {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.4em;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.chart-label {
+    position: absolute;
+    bottom: -90px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1em;
+    color: #444;
+}
+
+@media screen and (max-width: 600px) {
+    .chart-center-text {
+        bottom: 30px !important;
+    }
+    .chart-label {
+        bottom: 10px !important;
+    }
+}
+
+/* --- ÉTAT --- */
+.etat {
+    font-weight: bold;
+}
+
+.etat-actif {
+    color: #2ecc71;
+}
+
+.etat-inactif {
+    color: #e74c3c;
 }
