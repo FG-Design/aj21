@@ -16,6 +16,7 @@ const userKey = normalizeName(userName);
 // Clés uniques par utilisateur (pour éviter de redessiner inutilement)
 const LAST_TENSION_KEY  = `${userKey}_lastTension`;
 const LAST_COURANT_KEY  = `${userKey}_lastCourant`;
+const TIMEOUT_KEY = `${userKey}_timeout`;
 
 // Fichier JSON à charger
 const jsonFile = window.JSON_FILE || "data.json";
@@ -112,12 +113,25 @@ async function updateCharts() {
 
         const tension = Number(data.tension);
         const courant = Number(data.courant);
-        const etat = data.etat;
+        const etatJSON = data.etat;
 
         // NOUVEAU : timestamp provenant du JSON
         const lastTS = data.timestamp ? new Date(data.timestamp) : null;
         const lastTSFormatted = lastTS ? formatDateTime(lastTS) : "---";
 
+        // Lire le délai choisi dans la dropdown (en minutes)
+        const timeoutMinutes = parseInt(document.getElementById("timeoutSelect").value, 10);
+        
+        // Calculer le temps écoulé depuis la dernière mise à jour
+        let etatFinal = etatJSON; // valeur provenant du JSON
+        
+        if (lastTS) {
+            const diffMinutes = (now - lastTS) / 1000 / 60;
+            if (diffMinutes > timeoutMinutes) {
+                etatFinal = "Inactif";
+            }
+        }
+        
         // Mise à jour de l'affichage
         document.getElementById('timestamp').innerHTML = `
             <table class="info-table">
@@ -135,7 +149,7 @@ async function updateCharts() {
                 </tr>
                 <tr>
                     <td><strong>État du board</strong></td>
-                    <td class="etat ${etat === "Actif" ? "etat-actif" : "etat-inactif"}">${etat}</td>
+                    <td class="etat ${etatFinal === "Actif" ? "etat-actif" : "etat-inactif"}">${etatFinal}</td>
                 </tr>
             </table>
         `;
