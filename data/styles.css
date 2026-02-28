@@ -1,3 +1,4 @@
+/* --- GLOBAL --- */
 body {
     font-family: sans-serif;
     margin: 20px;
@@ -14,7 +15,7 @@ body {
 .info-block {
     width: 420px;
     margin: 0 auto 20px;
-    text-align: left; /* IMPORTANT : permet l’alignement interne */
+    text-align: left; /* Permet l’alignement interne */
 }
 
 /* --- TABLEAU GÉNÉRÉ PAR JS --- */
@@ -29,9 +30,10 @@ body {
 }
 
 #timestamp td:first-child {
-    width: 200px; /* ← synchronise la largeur avec .info-label */
+    width: 200px; /* Colonne des titres */
     text-align: right;
     font-weight: bold;
+    color: black;
 }
 
 #timestamp td:last-child {
@@ -46,17 +48,18 @@ body {
 }
 
 .info-label {
-    width: 200px;            /* même largeur que la colonne des titres */
+    width: 200px;            /* même largeur que les titres du tableau */
     text-align: right;       /* alignement identique */
     padding-right: 10px;
     white-space: nowrap;
-    font-weight: bold;       /* ← AJOUT ESSENTIEL */
-    color: black;             /* même couleur que le tableau */
-    font-size: 1rem;         /* même taille que le tableau */
+    font-weight: bold;
+    color: black;
+    font-size: 1rem;
 }
 
 .info-value {
     text-align: left;
+    padding-left: 10px;      /* aligne la dropdown avec les valeurs du tableau */
 }
 
 /* --- DROPDOWN CONFORTABLE --- */
@@ -69,73 +72,6 @@ body {
     background-color: white;
     width: 180px;
     appearance: none;
+
     background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='14' width='14' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><polygon points='0,0 20,0 10,10'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-}
-
-#timeoutSelect:focus {
-    outline: 2px solid #3498db;
-}
-
-/* --- GRAPHIQUES --- */
-.charts-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: -20px;
-    gap: 40px;
-}
-
-.chart-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 500px;
-    height: 250px;
-}
-
-canvas {
-    width: 100% !important;
-    height: auto !important;
-}
-
-.chart-center-text {
-    position: absolute;
-    bottom: -60px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.4em;
-    font-weight: bold;
-    line-height: 1;
-}
-
-.chart-label {
-    position: absolute;
-    bottom: -90px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1em;
-    color: #444;
-}
-
-@media screen and (max-width: 600px) {
-    .chart-center-text {
-        bottom: 30px !important;
-    }
-    .chart-label {
-        bottom: 10px !important;
-    }
-}
-
-/* --- ÉTAT --- */
-.etat {
-    font-weight: bold;
-}
-
-.etat-actif {
-    color: #2ecc71;
-}
-
-.etat-inactif {
-    color: #e74c3c;
-}
+    background
