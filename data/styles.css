@@ -89,7 +89,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 40px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .chart-wrapper {
@@ -101,7 +101,7 @@ body {
 
 canvas {
     width: 100% !important;
-    height: 250px !important; /* hauteur fixe réelle */
+    height: auto !important;
 }
 
 .chart-center-text {
