@@ -96,13 +96,12 @@ body {
     position: relative;
     width: 100%;
     max-width: 500px;
-    /* height: 250px; ← SUPPRIMER */
-    padding-bottom: 120px; /* espace pour le texte sous le graph */
+    height: 340px; /* 250px canvas + 90px texte */
 }
 
 canvas {
     width: 100% !important;
-    height: auto !important;
+    height: 250px !important; /* hauteur fixe réelle */
 }
 
 .chart-center-text {
