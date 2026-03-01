@@ -110,8 +110,7 @@ canvas {
     left: 50%;
     transform: translateX(-50%);
     font-size: 1.4em;
-    font-weight: bold;
-    line-height: 1;    
+    font-weight: bold;  
 }
 
 .chart-label {
