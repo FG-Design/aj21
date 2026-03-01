@@ -106,7 +106,7 @@ canvas {
 
 .chart-center-text {
     position: absolute;
-    bottom: -60px;
+    bottom: -40px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 1.4em;
@@ -115,7 +115,7 @@ canvas {
 
 .chart-label {
     position: absolute;
-    bottom: -90px;
+    bottom: -65px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 1em;
