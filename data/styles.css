@@ -96,7 +96,7 @@ body {
     position: relative;
     width: 100%;
     max-width: 500px;
-    height: 250;
+    height: 250px;
 }
 
 canvas {
@@ -106,16 +106,17 @@ canvas {
 
 .chart-center-text {
     position: absolute;
-    bottom: -50px;
+    bottom: -60px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 1.4em;
     font-weight: bold;
+    line-height: 1;    
 }
 
 .chart-label {
     position: absolute;
-    bottom: -75px;
+    bottom: -90px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 1em;
