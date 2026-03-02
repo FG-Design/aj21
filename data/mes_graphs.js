@@ -127,7 +127,9 @@ async function updateCharts() {
         
         if (lastTS) {
             const diffMinutes = (now - lastTS) / 1000 / 60;
-            if (diffMinutes > timeoutMinutes) {
+
+            // Si timeout = 0 → désactivé → on NE force PAS l'état
+            if (timeoutMinutes > 0 && diffMinutes > timeoutMinutes) {
                 etatFinal = "Inactif";
             }
         }
