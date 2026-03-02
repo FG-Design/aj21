@@ -10,6 +10,7 @@ body {
     font-weight: bold;
     color: black;
     text-align: center; /* ← centrer uniquement le titre */
+    padding-bottom: 10px;
 }
 
 /* --- CONTENEUR CENTRAL POUR TIMESTAMP + DÉLAI --- */
@@ -96,7 +97,7 @@ body {
     position: relative;
     width: 100%;
     max-width: 500px;
-    height: 250px;
+    height: 230px;
 }
 
 canvas {
