@@ -89,7 +89,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 40px;
-    margin-top: -20px;
+    margin-top: -80px;
 }
 
 .chart-wrapper {
@@ -109,7 +109,7 @@ canvas {
     bottom: -90px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 1.4em;
+    font-size: 2.4em;
     font-weight: bold;  
 }
 
@@ -118,7 +118,7 @@ canvas {
     bottom: -110px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 1em;
+    font-size: 1.4em;
     color: #444;
 }
 
