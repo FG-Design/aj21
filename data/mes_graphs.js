@@ -116,7 +116,14 @@ async function updateCharts() {
         const etatJSON = data.etat;
 
         // NOUVEAU : timestamp provenant du JSON
-        const lastTS = data.timestamp ? new Date(data.timestamp) : null;
+        const ts = data.timestamp;
+        let lastTS = null;
+        if (ts && ts !== "0000-00-00T00:00:00") {
+            const d = new Date(ts);
+            if (!isNaN(d)) {
+                lastTS = d;
+            }
+        }
         const lastTSFormatted = lastTS ? formatDateTime(lastTS) : "---";
 
         // Lire le délai choisi dans la dropdown (en minutes)
