@@ -120,7 +120,7 @@ async function updateCharts() {
         let lastTS = null;
         if (ts && ts !== "0000-00-00T00:00:00") {
             const d = new Date(ts);
-            if (!isNaN(d)) {
+            if (!isNaN(d.getTime())) {
                 lastTS = d;
             }
         }
