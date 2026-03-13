@@ -136,10 +136,12 @@ async function updateCharts() {
         const etatJSON = data.etat;
 
         // NOUVEAU : timestamp provenant du JSON
-        const ts = data.timestamp;
-        const lastTS = parseSafeTimestamp(ts);
+//        const ts = data.timestamp;
+//        const lastTS = parseSafeTimestamp(ts);
+//        const lastTSFormatted = lastTS ? formatDateTime(lastTS) : "---";
+        const lastTS = data.timestamp ? new Date(data.timestamp) : null;
         const lastTSFormatted = lastTS ? formatDateTime(lastTS) : "---";
-
+        
         // Lire le délai choisi dans la dropdown (en minutes)
         const timeoutMinutes = parseInt(document.getElementById("timeoutSelect").value, 10);
         
