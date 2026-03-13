@@ -102,6 +102,25 @@ function formatDateTime(date) {
     return `${yyyy}-${mm}-${dd} - ${hh}:${min}:${ss}`;
 }
 
+function parseSafeTimestamp(ts) {
+    // Rejeter null, vide, undefined
+    if (!ts || typeof ts !== "string") return null;
+
+    // Rejeter le timestamp MySQL invalide
+    if (ts === "0000-00-00T00:00:00") return null;
+
+    // Vérifier format ISO simple : YYYY-MM-DDTHH:MM:SS
+    const isoRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/;
+    if (!isoRegex.test(ts)) return null;
+
+    // Créer la date
+    const d = new Date(ts);
+
+    // Vérifier si valide
+    if (isNaN(d.getTime())) return null;
+
+    return d;
+
 async function updateCharts() {
     try {
         const now = new Date();
@@ -117,13 +136,7 @@ async function updateCharts() {
 
         // NOUVEAU : timestamp provenant du JSON
         const ts = data.timestamp;
-        let lastTS = null;
-        if (ts && ts !== "0000-00-00T00:00:00") {
-            const d = new Date(ts);
-            if (!isNaN(d.getTime())) {
-                lastTS = d;
-            }
-        }
+        const lastTS = parseSafeTimestamp(ts);
         const lastTSFormatted = lastTS ? formatDateTime(lastTS) : "---";
 
         // Lire le délai choisi dans la dropdown (en minutes)
