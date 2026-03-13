@@ -120,6 +120,7 @@ function parseSafeTimestamp(ts) {
     if (isNaN(d.getTime())) return null;
 
     return d;
+}
 
 async function updateCharts() {
     try {
